@@ -73,7 +73,9 @@ $(document).ready(() => {
       slider.options.max = getTime(featureToTimeTo, R.maxBy, moment(0))
       slider = new SliderTime(slider.options)
       slider.stopPlaying()
-      slider.setFrom(getTime(featureToTimeFrom, R.minBy, moment()))
+      slider.setFrom(
+        moment.add(slider.options.min, moment.duration(slider.options.max.diff(slider.options.min)))
+      )
     })
   })
   
