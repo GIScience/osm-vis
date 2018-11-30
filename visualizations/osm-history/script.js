@@ -25,13 +25,15 @@ $(document).ready(() => {
       const geoJson = {type:"FeatureCollection", features: json2.map(o => topojson.feature(json, o)).filter(f => f.geometry !== null) }
       // ??? if (geoJson.features.length === 0) return
       svgLayers = [L.geoJSON(geoJson, {color: colorPrimaryDark, fillColor: colorPrimaryDark, fillOpacity: .4}).addTo(map)]
-      /*const drawNodes = cs => {
+      /* // rendering nodes like this is too slow for many features
+      const drawNodes = cs => {
         if (cs instanceof Array) {
           if (cs[0] instanceof Array) R.forEach(drawNodes, cs)
           else svgLayers.push(L.circleMarker(R.reverse(cs), {color: colorPrimaryDark, fillColor: 'white', fillOpacity: 1, radius: 2, weight: 2}).addTo(map))
         }
       }
-      drawNodes(geoJson.geometry.coordinates)*/
+      geoJson.features.forEach(feature => drawNodes(feature.geometry.coordinates))
+      */
     }
   }
   
